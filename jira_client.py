@@ -94,15 +94,16 @@ class JIRAClient:
 
         """
         description_text = f"""
-        ```text
+        *Traceback*
+        
+        {{code:text}}
         {traceback}\n
-        ```
+        {{code}}  
         Exception location : {exception_location}
         
         """
         data = self.create_issue_data.copy()
         data['fields']['assignee']['id'] = self.account_id
-        data['fields']['description'] = description_text
         data['fields']['issuetype']['id'] = JIRAIssueType.BUG.value
         data['fields']['summary'] = f"{test_name}"
         data['fields']['labels'].append("AutomationAPITest")
@@ -122,5 +123,7 @@ class JIRAClient:
                 }
             ]
         }
+
+        data['fields']['description'] = description_text
 
         requests.post(auth=self.basic_auth, url=f"{self.base_url}{self.create_issue_resource}", json=data)
