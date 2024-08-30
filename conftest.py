@@ -7,6 +7,14 @@ _ISSUE_TICKET_ID = ""
 _JIRA_CLIENT = JIRAClient()
 
 
+def pytest_addoption(parser):
+    parser.addoption(
+        "--report_to_jira",
+        action="store_true",  # 이 옵션이 제공되면 값을 True로 저장
+        default=False,  # 옵션이 없으면 기본값은 False
+    )
+
+
 @pytest.fixture(scope="session", autouse=True)
 def setup_jira_ticket():
     # pass
