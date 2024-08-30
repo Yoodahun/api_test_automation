@@ -62,6 +62,7 @@ class User(BaseAPIClient):
         """
         전체 유저 리스트를 반환합니다.
         """
+        self.logger.info("get_list_users 실행")
         return self.get(endpoint=self.resource)
 
     def get_single_user(self, user_id: str) -> requests.Response:
@@ -70,6 +71,7 @@ class User(BaseAPIClient):
         :param user_id:
         :return:
         """
+        self.logger.info("get_single_user 실행")
         return self.get(endpoint=f"{self.resource}/{user_id}")
 
     def create_a_user(self, user_name: str = "", user_job: str = "") -> requests.Response:
@@ -79,6 +81,7 @@ class User(BaseAPIClient):
         :param user_job:
         :return:
         """
+        self.logger.info("create_a_user 실행")
         user_name = user_name if user_name != "" else "Smith"
         user_job = user_job if user_job != "" else "QA engineer"
         data = {
@@ -87,3 +90,15 @@ class User(BaseAPIClient):
         }
 
         return self.post(endpoint=self.resource, data=data)
+
+    def delete_a_user(self, user_id:str)->requests.Response:
+        """
+        유절르 삭제합니다.
+        :param user_id:
+        :return: requests.Response
+        """
+
+        self.logger.info("delete_a_user 실행")
+
+        return self.delete(endpoint=f"{self.resource}/{user_id}")
+

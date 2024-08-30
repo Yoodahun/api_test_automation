@@ -15,7 +15,7 @@ class TestUser(BaseTest):
         assert self.is_status_code_between_200_and_300_and_response_time_is_not_slowed(response)
 
         response_data = self.convert_json_data(response)
-        
+
         assert len(response_data["data"]) > 0
         assert "id" in response_data["data"][0]
 
@@ -67,4 +67,25 @@ class TestUser(BaseTest):
 
         # 생성한 아이디와 조회한 아이디가 일치하는지 확인한다.
         assert str(response_data["data"]["id"]) == user_id
+
+    def test_delete_a_user(self):
+        """
+        임의의 유저를 삭제합니다.
+
+        """
+        response = self.user.delete_a_user("3")
+        assert self.is_status_code_between_200_and_300_and_response_time_is_not_slowed(response)
+        assert not self.is_status_code_between_400_and_500_and_response_time_is_not_slowed(response)
+
+
+    def test_fail_get_single_user(self):
+        """
+        일부러 실패하는 테스트케이스입니다.
+
+        """
+        user_id = int("123@@!#13") # ValueError
+        response = self.user.get_single_user(user_id)
+
+        assert self.is_status_code_between_200_and_300_and_response_time_is_not_slowed(response)
+
 
