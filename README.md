@@ -86,6 +86,11 @@ API KEY같은 경우에는 민감한 정보이므로 `jira_api_key.py` 는 `.git
 
 JIRA로의 리포트가 실행될 때에는 전체 테스트 실행 전에 묶음용 티켓이 한 번 생성되고, 그 이후 각각의 테스트가 실패할 때마다 버그티켓을 생성하고, 전체 테스트 실행 시 최초 생성했던 묶음용 티켓과 **relates** 관계로 링크가 설정됩니다.
 
+
+<img width="350" alt="스크린샷 2024-08-30 오후 11 00 38" src="https://github.com/user-attachments/assets/3961e3b7-6ca4-4fe5-ae6f-2aec59b5fa37">
+
+<img width="800" alt="스크린샷 2024-08-30 오후 11 09 22" src="https://github.com/user-attachments/assets/1b2be10f-e70e-40de-b7ce-ac47159f429d">
+
 리포트 로직에 대해서는 `conftest.py` 내에서 아래 fixture와 hook을 참고해주세요.
 - `setup_jira_ticket()`
 - `pytest_runtest_makereport()`
